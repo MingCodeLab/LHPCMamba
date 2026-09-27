@@ -2,7 +2,7 @@
 
 LHPCMamba: Lightweight Hybrid Parallel CNN-Mamba Network for Driver State Detection
 
-This repository contains the cleaned implementation used for LHPCMamba experiments. The model definition is available at:
+This repository contains the implementation used for LHPCMamba experiments. The model definition is available at:
 
 ```text
 ultralytics/cfg/models/LHPCMamba/LHPCMamba.yaml
