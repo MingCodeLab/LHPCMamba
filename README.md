@@ -1,6 +1,6 @@
 # LHPCMamba
 
-LHPCMamba: Lightweight Hybrid Parallel CNN-Mamba Network for Driver State Detection
+LHPCMamba: Lightweight Hybrid Parallel CNN-Mamba Network for Driver State Detection 
 
 This repository contains the implementation used for LHPCMamba experiments. The model definition is available at:
 
