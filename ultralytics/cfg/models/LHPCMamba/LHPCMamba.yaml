@@ -1,0 +1,35 @@
+# LHPCMamba: Lightweight Hybrid Parallel CNN-Mamba Network for Driver State Detection
+nc: 80
+scales:
+  T: [0.33, 0.25, 1024]
+
+backbone:
+  # [from, repeats, module, args]
+  - [-1, 1, SimpleStem, [128, 3]]
+  - [-1, 3, HPCMBlock, [128]]
+  - [-1, 1, Conv, [256, 3, 2]]
+  - [-1, 3, HPCMBlock, [256]]
+  - [-1, 1, Conv, [512, 3, 2]]
+  - [-1, 9, HPCMBlock, [512]]
+  - [-1, 1, Conv, [1024, 3, 2]]
+  - [-1, 3, HPCMBlock, [1024]]
+  - [-1, 1, CESPP, [1024, 5]]
+
+head:
+  - [-1, 1, nn.Upsample, [None, 2, "nearest"]]
+  - [[-1, 5], 1, FIAFM, [256, 128]]
+  - [-1, 3, HPCMBlock, [512]]
+
+  - [-1, 1, nn.Upsample, [None, 2, "nearest"]]
+  - [[-1, 3], 1, FIAFM, [128, 64]]
+  - [-1, 3, HPCMBlock, [256]]
+
+  - [-1, 1, Conv, [256, 3, 2]]
+  - [[11, 15], 1, FIAFM, [128, 64]]
+  - [-1, 3, HPCMBlock, [512]]
+
+  - [-1, 1, Conv, [512, 3, 2]]
+  - [[8, 18], 1, FIAFM, [256, 128]]
+  - [-1, 3, HPCMBlock, [1024]]
+
+  - [[14, 17, 20], 1, Detect, [nc]]
